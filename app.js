@@ -89,7 +89,9 @@ const japanBtn = document.createElement("button")
 const  chineseBtn = document.createElement("button")
 const btnClasses = ["btn", "btn-outline-dark", "btn-item"]
 let buttonContainer = [allBtn, koreanBtn, japanBtn,  chineseBtn]
-const btnNames = ["All", "Korean", "Japan", "China"]
+const btnNames = ["All", "Korea", "Japan", "China"]
+
+const section = document.getElementsByClassName("section-center")
 // method that manages buttons classList and textContent
 btnContainer[0].append(allBtn,koreanBtn,japanBtn,chineseBtn)
 function addButtons(arr, names){
@@ -101,3 +103,14 @@ function addButtons(arr, names){
 // Buttons added by method
 addButtons(buttonContainer, btnNames)
 
+function filterCategories(category) {
+  if (category === "All") {
+    console.log(menu)
+  }
+  let selectedMenu = menu.filter(item => item.category === category)
+  console.log(selectedMenu)
+}
+
+function fetchItems(categoty="All") {
+  filterCategories(categoty)
+}

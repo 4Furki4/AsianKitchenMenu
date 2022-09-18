@@ -82,6 +82,22 @@ const menu = [
   },
 ];
 
-
-
+const btnContainer = document.getElementsByClassName("btn-container")
+const allBtn = document.createElement("button")
+const koreanBtn = document.createElement("button")
+const japanBtn = document.createElement("button")
+const  chineseBtn = document.createElement("button")
+const btnClasses = ["btn", "btn-outline-dark", "btn-item"]
+let buttonContainer = [allBtn, koreanBtn, japanBtn,  chineseBtn]
+const btnNames = ["All", "Korean", "Japan", "China"]
+// method that manages buttons classList and textContent
+btnContainer[0].append(allBtn,koreanBtn,japanBtn,chineseBtn)
+function addButtons(arr, names){
+  for (let i = 0; i < arr.length; i++) {
+    arr[i].classList.add(...btnClasses)
+    arr[i].textContent = names[i]
+  }
+}
+// Buttons added by method
+addButtons(buttonContainer, btnNames)
 

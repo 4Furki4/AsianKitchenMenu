@@ -81,17 +81,23 @@ const menu = [
     desc: `Red bean paste dessert, serving with honey.`,
   },
 ];
-
-const btnContainer = document.getElementsByClassName("btn-container")
-const allBtn = document.createElement("button")
-const koreanBtn = document.createElement("button")
-const japanBtn = document.createElement("button")
-const  chineseBtn = document.createElement("button")
-const btnClasses = ["btn", "btn-outline-dark", "btn-item"]
-let buttonContainer = [allBtn, koreanBtn, japanBtn,  chineseBtn]
-const btnNames = ["All", "Korea", "Japan", "China"]
-
 const section = document.getElementsByClassName("section-center")
+const btnContainer = document.getElementsByClassName("btn-container")
+
+
+// buttons and its onclick methods added
+const btnNames = ["All", "Korea", "Japan", "China"]
+const allBtn = document.createElement("button")
+allBtn.setAttribute("onclick", "fetchItems('All')")
+const koreanBtn = document.createElement("button")
+koreanBtn.setAttribute("onclick", "fetchItems('Korea')")
+const japanBtn = document.createElement("button")
+japanBtn.setAttribute("onclick", "fetchItems('Japan')")
+const chineseBtn = document.createElement("button")
+chineseBtn.setAttribute("onclick", "fetchItems('China')")
+const buttonContainer = [allBtn, koreanBtn, japanBtn,  chineseBtn]
+const btnClasses = ["btn", "btn-outline-dark", "btn-item"]
+
 // method that manages buttons classList and textContent
 btnContainer[0].append(allBtn,koreanBtn,japanBtn,chineseBtn)
 function addButtons(arr, names){
@@ -105,12 +111,31 @@ addButtons(buttonContainer, btnNames)
 
 function filterCategories(category) {
   if (category === "All") {
-    console.log(menu)
+    return menu
   }
   let selectedMenu = menu.filter(item => item.category === category)
-  console.log(selectedMenu)
+  return selectedMenu;
+}
+function fetchItems(category="All") {
+  section[0].innerHTML = ``// not to duplicate same items, section's cleared
+  let itemList = filterCategories(category)
+  let itemsToPrint = []
+  itemList.forEach(oneItem => { //each food's content prepared to print
+   let item = document.createElement("div")
+   item.classList.add("menu-items", "col-lg-6", "col-sm-12")
+   item.innerHTML= `
+    <img src = ${oneItem.img} alt=${oneItem.title} class="photo">
+    <div class = "menu-info" >
+        <div class = "menu-title">
+            <h4>${oneItem.title}</h4>
+            <h4 class = "price" >${oneItem.price}</h4>
+        </div>
+        <div class = "menu-text">
+            ${oneItem.desc}
+        </div>
+    </div>`
+    section[0].append(item) //they are printed
+  })
 }
 
-function fetchItems(categoty="All") {
-  filterCategories(categoty)
-}
+fetchItems()
